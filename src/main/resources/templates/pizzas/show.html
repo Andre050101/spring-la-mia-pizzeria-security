@@ -25,6 +25,7 @@
 
         <section class="row mb-3">
             <div class="col-12" th:if="${pizze.getDiscounts().size() > 0 }">
+                <h3 class="mt-2">Discounts:</h3>
                 <table class="table">
                     <thead>
                         <tr>
@@ -40,7 +41,7 @@
                             <td>[[${discount.discountDateBegin}]]</td>
                             <td>[[${discount.discountDateEnd}]]</td>
                             <td>
-                                <a th:href="...">
+                                <a th:href="@{../discounts/edit/{id}(id=*{discount.id})}">
                                     <button class="btn btn-primary">
                                         <strong>Modifica</strong>
                                     </button>

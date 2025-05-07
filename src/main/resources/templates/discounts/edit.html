@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <div th:replace="~{fragments/resources :: headTags}"></div>
+        <title>Pizza detail</title>
+    </head>
+<body>
+    <nav th:replace="~{fragments/navbar :: navbar('discounts')}"></nav>
+    <main class="container">
+        <h1>Aggiunta discount pizza [[${discount.pizza.nome}]]</h1>
+        <hr />
+        <section class="row">
+            <div class="col-12">
+            
+               <form id="discount-form" th:action="@{/discounts/edit/{id}(id=${discount.id})}" th:object="${discount}" method="post">
+                
+
+                <div class="mb-3" th:if="${#fields.hasErrors()}">
+                    <ul class="alert alert-danger ps-5">
+                        <li th:each="error : ${#fields.allErrors()}" th:text="${error}"></li>
+                    </ul>
+                    
+                </div>    
+
+                    <input type="hidden" th:field="*{pizza}" id="linkedPizza">
+                
+                    <div class="mb-3">
+                        <label class="form-label" for="title">Titolo:</label>
+                        <input class="form-control" type="text" id="title" th:field="*{title}">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label" for="discountDateBegin">Data inizio sconto:</label>
+                        <input class="form-control" type="date" id="discountDateBegin" th:field="*{discountDateBegin}">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label" for="discountDateEnd">Data fine sconto:</label>
+                        <input class="form-control" type="date" id="discountDateEnd" th:field="*{discountDateEnd}">
+                    </div>
+
+                    <div class="mb-3 d-flex justify-content-between">
+                        <input type="submit" class="btn btn-info" value="Save edited discount">
+                        <input type="reset" class="btn btn-warning" value="Reset all fields">
+                    </div>
+               </form> 
+            </div>
+        </section>
+    </main>
+    <div th:replace="~{fragments/resources :: scripts}"></div>
+</body>
+</html>
