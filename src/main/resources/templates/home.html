@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="~{fragments/resources :: headTags}"></div>
+    <title>Home</title>
+</head>
+<body>
+    <div th:replace="~{fragments/navbar :: navbar('pizzas')}"></div>
+    <main class="container">
+        <h1>io sono la home!</h1>
+    </main>
+    
+    <div th:replace="~{fragments/resources :: scripts}"></div>
+</body>
+</html>

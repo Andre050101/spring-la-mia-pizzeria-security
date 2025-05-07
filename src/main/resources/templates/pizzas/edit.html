@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <div th:replace="~{fragments/resources :: headTags}"></div>
+        <title>Pizza detail</title>
+    </head>
+<body>
+    <nav th:replace="~{fragments/navbar :: navbar('pizzas')}"></nav>
+    <main class="container">
+        <h1>Modifica pizza</h1>
+        <hr />
+        <section class="row">
+            <div class="col-12">
+               <form id="pizza-form" th:action="@{/pizzas/edit/{id}(id=${pizza.id})}" th:object="${pizza}" method="post">
+                <div class="mb-3" th:if="${#fields.hasErrors()}">
+                    <ul class="alert alert-danger ps-5">
+                        <li th:each="error : ${#fields.allErrors()}" th:text="${error}"></li>
+                    </ul>
+                    
+                </div>    
+                
+                <div class="mb-3">
+                        <label class="form-label" for="nome">Nome:</label>
+                        <input class="form-control" type="text" id="nome" th:field="*{nome}">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label" for="descrizione">Descrizione:</label>
+                        <textarea class="form-control" id="descrizione" th:field="*{descrizione}"></textarea>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label" for="url_foto">Url foto:</label>
+                        <input class="form-control" type="text" id="url_foto" th:field="*{url_foto}">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label" for="prezzo">Prezzo:</label>
+                        <input class="form-control" type="number" id="prezzo" th:field="*{prezzo}">
+                    </div>
+
+                    <div class="mb-3 d-flex justify-content-between">
+                        <input type="submit" class="btn btn-info" value="Update pizza">
+                        <input type="reset" class="btn btn-warning" value="Reset all fields">
+                    </div>
+               </form>
+            </div>
+        </section>
+    </main>
+    <div th:replace="~{fragments/resources :: scripts}"></div>
+</body>
+</html>

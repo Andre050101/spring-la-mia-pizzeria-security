@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <div th:replace="~{fragments/resources :: headTags}"></div>
+        <title>Pizza detail</title>
+    </head>
+<body>
+    <nav th:replace="~{fragments/navbar :: navbar('pizzas')}"></nav>
+    <main class="container">
+        <h1>Dettaglio pizza</h1>
+        <hr />
+        <section class="row">
+            <div class="col-12">
+                <p th:text="${pizze}"></p>
+                <a th:href="@{../pizzas}">
+                    <button class="btn btn-info">Torna alle pizze!</button>
+                </a>
+            </div>
+        </section>
+    </main>
+    <div th:replace="~{fragments/resources :: scripts}"></div>
+</body>
+</html>
