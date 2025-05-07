@@ -15,6 +15,10 @@
                 <a th:href="@{../pizzas}">
                     <button class="btn btn-info">Torna alle pizze!</button>
                 </a>
+
+                <a th:href="@{./{id}/addDiscount(id=${pizze.id})}">
+                    <button class="btn btn-warning">Aggiungi uno sconto</button>
+                </a>
             </div>
         </section>
     </main>
