@@ -29,7 +29,7 @@ public class DiscountController {
             return "discounts/create";
         }
         repo.save(formDiscount);
-        return "redirect:/pizzas";
+        return "redirect:/pizzas" + formDiscount.getPizza().getId();
     }
 
     @GetMapping("/edit/{id}")
