@@ -17,8 +17,46 @@
                 </a>
 
                 <a th:href="@{./{id}/addDiscount(id=${pizze.id})}">
-                    <button class="btn btn-warning">Aggiungi uno sconto</button>
+                    <button class="btn btn-warning"><strong>Aggiungi uno sconto</strong></button>
                 </a>
+
+            </div>
+        </section>
+
+        <section class="row mb-3">
+            <div class="col-12" th:if="${pizze.getDiscounts().size() > 0 }">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Titolo:</th>
+                            <th>Data inizio:</th>
+                            <th>Data fine:</th>
+                            <th>Modifica:</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="discount : ${pizze.discounts}">
+                            <td>[[${discount.title}]]</td>
+                            <td>[[${discount.discountDateBegin}]]</td>
+                            <td>[[${discount.discountDateEnd}]]</td>
+                            <td>
+                                <a th:href="...">
+                                    <button class="btn btn-primary">
+                                        <strong>Modifica</strong>
+                                    </button>
+                                </a>
+                            </td>
+                        </tr>
+
+                    </tbody>
+
+
+
+
+                </table>
+            </div>
+            <div class="col-12" th:unless="${pizze.getDiscounts().size() > 0 }">
+                <h4>There's no discount for this pizza!</h4>
             </div>
         </section>
     </main>
