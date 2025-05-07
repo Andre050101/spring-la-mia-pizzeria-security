@@ -1,11 +1,14 @@
 package org.lessons.java.spring_la_mia_pizzeria_relazioni.model;
 
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Lob;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -32,6 +35,10 @@ public class Pizza {
 
     @NotNull(message = "Il prezzo è obbligatorio")
     private float prezzo;
+
+    // *Aggiunta di una relazione con uno o piu discount */
+    @OneToMany(mappedBy = "pizza")
+    private List<Discount> discounts;
 
     public Integer getId() {
         return id;
@@ -71,6 +78,14 @@ public class Pizza {
 
     public void setPrezzo(float prezzo) {
         this.prezzo = prezzo;
+    }
+
+    public List<Discount> getDiscounts() {
+        return discounts;
+    }
+
+    public void setDiscounts(List<Discount> discounts) {
+        this.discounts = discounts;
     }
 
     @Override
