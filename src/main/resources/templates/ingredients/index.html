@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <div th:replace="~{fragments/resources :: headTags}"></div>
+        <title>Ingredients</title>
+    </head>
+    <body>
+        <nav th:replace="~{fragments/navbar :: navbar('ingredients')}">
+
+        </nav>
+        <main class="container">
+            <h1>Ingredienti:</h1>
+            <hr />
+            <section class="row">
+                <div class="col-12">
+                    <table class="table" th:if="${ingredients.size() > 0}">
+                        <thead>
+                            <tr>
+                                <th>ID:</th>
+                                <th>Nome:</th>
+                                <th>Descrizione:</th>
+                                <th>Number of pizzas:</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="ingredient : ${ingredients}" th:object="${ingredient}">
+                                <td>[[*{id}]]</td>
+                                <td>[[*{name}]]</td>
+                                <td>[[*{description}]]</td>
+                                <td>[[*{pizzas.size()}]]</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p th:text="'No ingredients are available at the moment...'" th:unless="${ingredients.size() > 0}"></p>
+                </div>
+    
+            </section>
+        </main>
+        <div th:replace="~{fragments/resources :: scripts}"></div>
+    </body>
+</html>
