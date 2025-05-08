@@ -5,6 +5,7 @@ import java.util.List;
 import org.lessons.java.spring_la_mia_pizzeria_relazioni.model.Discount;
 import org.lessons.java.spring_la_mia_pizzeria_relazioni.model.Pizza;
 import org.lessons.java.spring_la_mia_pizzeria_relazioni.repository.DiscountRepository;
+import org.lessons.java.spring_la_mia_pizzeria_relazioni.repository.IngredientRepository;
 import org.lessons.java.spring_la_mia_pizzeria_relazioni.repository.PizzaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,6 +30,9 @@ public class PizzeController {
     @Autowired
     private DiscountRepository repoDis;
 
+    @Autowired
+    private IngredientRepository repoIng;
+
     @GetMapping
     public String index(@RequestParam(name = "nome", required = false) String nome, Model model) {
         List<Pizza> pizze;
@@ -51,6 +55,7 @@ public class PizzeController {
     @GetMapping("/create")
     public String create(Model model) {
         model.addAttribute("pizza", new Pizza());
+        model.addAttribute("ingredients", repoIng.findAll());
         return "/pizzas/create";
     }
 
@@ -67,6 +72,7 @@ public class PizzeController {
 
     @GetMapping("/edit/{id}")
     public String edit(@PathVariable Integer id, Model model) {
+        model.addAttribute("ingredients", repoIng.findAll());
         model.addAttribute("pizza", repo.findById(id).get());
         return "/pizzas/edit";
     }
