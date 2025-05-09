@@ -61,10 +61,10 @@ public class PizzaRestController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Pizza> delete(@Valid @PathVariable Integer id) {
-        if(service.findById(id).isEmpty()){
+        if (service.findById(id).isEmpty()) {
             return new ResponseEntity<Pizza>(HttpStatus.NOT_FOUND);
         }
         service.deleteById(id);
-        return new ResponseEntity<Pizza>(HttpStatus.OK)
+        return new ResponseEntity<Pizza>(HttpStatus.OK);
     }
 }
