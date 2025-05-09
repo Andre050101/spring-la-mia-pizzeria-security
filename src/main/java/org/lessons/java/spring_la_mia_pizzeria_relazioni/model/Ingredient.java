@@ -2,6 +2,8 @@ package org.lessons.java.spring_la_mia_pizzeria_relazioni.model;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -29,6 +31,7 @@ public class Ingredient {
 
     // Relazione many-to-many con pizza
     @ManyToMany(mappedBy = "ingredients")
+    @JsonIgnoreProperties("ingredients")
     private List<Pizza> pizzas;
 
     // Getter e setter

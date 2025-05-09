@@ -1,7 +1,9 @@
 package org.lessons.java.spring_la_mia_pizzeria_relazioni.controller;
 
 import org.lessons.java.spring_la_mia_pizzeria_relazioni.model.Discount;
+import org.lessons.java.spring_la_mia_pizzeria_relazioni.model.Pizza;
 import org.lessons.java.spring_la_mia_pizzeria_relazioni.repository.DiscountRepository;
+import org.lessons.java.spring_la_mia_pizzeria_relazioni.service.DiscountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,7 +21,7 @@ import jakarta.validation.Valid;
 public class DiscountController {
 
     @Autowired
-    private DiscountRepository repo;
+    private DiscountService discService;
 
     @PostMapping("/create")
     public String store(@Valid @ModelAttribute("discount") Discount formDiscount, BindingResult bindingResult,
@@ -28,13 +30,13 @@ public class DiscountController {
         if (bindingResult.hasErrors()) {
             return "discounts/create";
         }
-        repo.save(formDiscount);
-        return "redirect:/pizzas" + formDiscount.getPizza().getId();
+        discService.create(formDiscount);
+        return "redirect:/pizzas/" + formDiscount.getPizza().getId();
     }
 
     @GetMapping("/edit/{id}")
     public String edit(@PathVariable Integer id, Model model) {
-        model.addAttribute("discount", repo.findById(id).get());
+        model.addAttribute("discount", discService.getById(id));
         return "discounts/edit";
 
     }
@@ -45,8 +47,16 @@ public class DiscountController {
         if (bindingResult.hasErrors()) {
             return "discounts/edit";
         }
-        repo.save(formDiscount);
+        discService.edit(formDiscount);
         return "redirect:/pizzas/" + formDiscount.getPizza().getId();
+    }
+
+    @PostMapping("delete/{id}")
+    public String delete(@PathVariable("id") Integer id) {
+        Discount discountToDelete = discService.getById(id);
+        Integer pizzaId = discountToDelete.getPizza().getId();
+        discService.delete(discountToDelete);
+        return "redirect:/pizzas/" + pizzaId;
     }
 
 }

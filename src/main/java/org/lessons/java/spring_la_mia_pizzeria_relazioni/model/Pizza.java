@@ -2,6 +2,8 @@ package org.lessons.java.spring_la_mia_pizzeria_relazioni.model;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -46,7 +48,8 @@ public class Pizza {
 
     // Aggiunta relazione many-to-many con Ingredient
     @ManyToMany
-    @JoinTable(name = "ingredient_pizza", joinColumns = @JoinColumn(name = "ingredient_id"), inverseJoinColumns = @JoinColumn(name = "pizza_id"))
+    @JoinTable(name = "ingredient_pizza", joinColumns = @JoinColumn(name = "pizza_id"), inverseJoinColumns = @JoinColumn(name = "ingredient_id"))
+    @JsonIgnoreProperties("pizzas")
     private List<Ingredient> ingredients;
 
     // Getter e setter

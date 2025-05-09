@@ -12,6 +12,10 @@
         <section class="row">
             <div class="col-12">
                 <p th:text="${pizze}"></p>
+                <p>Ingredienti:</p>
+                <ul>
+                    <li th:each="ingredient : ${pizze.ingredients}" th:text="${ingredient.name}"></li>
+                </ul>
                 <a th:href="@{../pizzas}">
                     <button class="btn btn-info">Torna alle pizze!</button>
                 </a>
@@ -33,6 +37,7 @@
                             <th>Data inizio:</th>
                             <th>Data fine:</th>
                             <th>Modifica:</th>
+                            <th>Elimina:</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -46,6 +51,13 @@
                                         <strong>Modifica</strong>
                                     </button>
                                 </a>
+                            </td>
+                            <td>
+                                <form action="#" th:action="@{/discounts/delete/{id}(id=*{discount.id})}" method="post">
+                                    <button type="submit" class="btn btn-danger">
+                                        <strong>Elimina</strong>
+                                    </button>
+                                </form>
                             </td>
                         </tr>
 
