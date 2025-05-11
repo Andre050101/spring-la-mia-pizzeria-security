@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
     <head>
         <div th:replace="~{fragments/resources :: headTags}"></div>
         <title>Ingredients</title>
@@ -20,8 +20,8 @@
                                 <th>Nome:</th>
                                 <th>Descrizione:</th>
                                 <th>Number of pizzas:</th>
-                                <th>Edit:</th>
-                                <th>Delete:</th>
+                                <th sec:authorize="hasAuthority('ADMIN')">Edit:</th>
+                                <th sec:authorize="hasAuthority('ADMIN')">Delete:</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -30,14 +30,14 @@
                                 <td>[[*{name}]]</td>
                                 <td>[[*{description}]]</td>
                                 <td>[[*{pizzas.size()}]]</td>
-                                <td>
+                                <td sec:authorize="hasAuthority('ADMIN')">
                                     <a th:href="@{/ingredients/edit/{id}(id=*{id})}">
                                         <button class="btn btn-warning">
                                             <strong>Edit</strong>
                                         </button>
                                     </a>
                                 </td>
-                                <td>
+                                <td sec:authorize="hasAuthority('ADMIN')">
                                     <!--Form-->
                                     <form action="#" th:action="@{/ingredients/delete/{id}(id=*{id})}" method="post">
                                         <button type="submit" class="btn btn-danger">
@@ -51,7 +51,7 @@
                     <p th:text="'No ingredients are available at the moment...'" th:unless="${ingredients.size() > 0}"></p>
                 </div>
             </section>
-            <a th:href="@{/ingredients/create}" class="me-auto btn btn-info btn-sm"> Add new ingredient</a>
+            <a th:href="@{/ingredients/create}" sec:authorize="hasAuthority('ADMIN')" class="me-auto btn btn-info btn-sm"> Add new ingredient</a>
         </main>
         <div th:replace="~{fragments/resources :: scripts}"></div>
     </body>

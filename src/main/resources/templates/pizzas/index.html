@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" 
+                xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <div th:replace="~{fragments/resources :: headTags}"></div>
     <title>Pizzas</title>
@@ -21,7 +22,7 @@
 
         </div>
         <hr /> 
-        <div class="mb-3">
+        <div sec:authorize="hasAuthority('ADMIN')" class="mb-3">
             <a th:href="@{/pizzas/create}" class="me-auto btn btn-info btn-sm"> Add new pizza</a>
         </div>
         <section class="row">
@@ -33,8 +34,8 @@
                             <th>Descrizione</th>
                             <th>Prezzo:</th>
                             <th>Dettaglio:</th>
-                            <th>Modifica:</th>
-                            <th>Elimina:</th>
+                            <th sec:authorize="hasAuthority('ADMIN')">Modifica:</th>
+                            <th sec:authorize="hasAuthority('ADMIN')">Elimina:</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -49,14 +50,14 @@
                                     </button>
                                 </a>
                             </td>
-                            <td>
+                            <td sec:authorize="hasAuthority('ADMIN')">
                                 <a th:href="@{/pizzas/edit/{id}(id=*{id})}">
                                     <button class="btn btn-primary">
                                         <strong>Modifica</strong>
                                     </button>
                                 </a>
                             </td>
-                            <td>
+                            <td sec:authorize="hasAuthority('ADMIN')">
                                 <!--Form-->
                                 <form action="#" th:action="@{/pizzas/delete/{id}(id=*{id})}" method="post">
                                     <button type="submit" class="btn btn-danger">

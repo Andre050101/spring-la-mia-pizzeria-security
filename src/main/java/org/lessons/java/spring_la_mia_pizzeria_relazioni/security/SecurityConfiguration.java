@@ -20,9 +20,16 @@ public class SecurityConfiguration {
         http.authorizeHttpRequests()
                 .requestMatchers("/pizzas/create", "/pizzas/edit/**").hasAuthority("ADMIN")
                 .requestMatchers(HttpMethod.POST, "/pizzas/**").hasAuthority("ADMIN")
+
                 .requestMatchers("/discount", "/discount/**").hasAuthority("ADMIN")
-                .requestMatchers("/pizzas", "/pizzas/**").hasAnyAuthority("USER", "ADMIN")
+
+                .requestMatchers("/ingredients/create", "/ingredients/edit/**").hasAuthority("ADMIN")
+                .requestMatchers(HttpMethod.POST, "/ingredients/**").hasAuthority("ADMIN")
+
+                .requestMatchers(HttpMethod.GET, "/pizzas", "/pizzas/**").permitAll()
+
                 .requestMatchers("/**").permitAll()
+
                 .and().formLogin()
                 .and().logout()
                 .and().exceptionHandling();
